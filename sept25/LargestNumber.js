@@ -83,3 +83,6 @@ sort = (num1, num2) => {
 // console.log(largestNumber([824,938,1399,5607,6973,5703,9609,4398,8247]) === "9609938824824769735703560743981399")
 // console.log(largestNumber([121, 12]), largestNumber([121, 12]) === "12121")
 console.log(largestNumber([3, 43, 48, 94, 85, 33, 64, 32, 63, 66]), 9485666463)
+
+
+//iterate, if a single digit, append 9.5
