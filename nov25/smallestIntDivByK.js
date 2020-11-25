@@ -27,10 +27,39 @@ Constraints:
 Notes:
 N = 1
 N = 11
-N = 111
-N = 1111....
+N = 111 = 11 * 10 + 1  
+N = 1111 = 111 * 10 + 1 = ((1 * 10 + 1) * 10 + 1) * 10 + 1
+
+
+Remainders: 
+for r = N % K // N = nK + r
+
+if            N = 11,              11 = nK + r
+then  N = 111 = 11 * 10 + 1,    111 = (nK + r) * 10 + 1 && 111 = n'K + r' therefore (10r + 1) % K = r' 
 
 */
 
-let n = 15
-console.log(11%n, 111%n, 1111%n,11111%n, 111111%n, 1111111%n, 11111111%n, 111111111%n, 1111111111%n, 11111111111%n)
+// let n = 6
+// console.log(11%n, 111%n, 1111%n,11111%n, 111111%n, 1111111%n, 11111111%n, 111111111%n, 1111111111%n, 11111111111%n)
+
+var smallestRepunitDivByK = function(K) {
+  let remainders = new Set();
+  let count = 0;
+
+  helper = (n) => {
+    count++
+    let remainder = n % K;
+    if (remainder === 0) {
+      return count
+    }
+    if (remainders.has(remainder)) {
+      return -1
+    }
+    remainders.add(remainder)
+    return helper(10 * remainder + 1)
+  }
+  return helper(1)
+
+};
+
+console.log(smallestRepunitDivByK(9))
