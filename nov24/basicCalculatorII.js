@@ -36,25 +36,20 @@ var calculate = function(s) {
   s = s.replace(/\s/g, '');
   
   var expression = [];
-
-  helper = (string) => {
-    if (string.length === 0) {
-      return;
+  
+  var firstNum = 0;
+  var curOp = 0;
+  for (var i = 0; i < s.length; i++) {
+    if(isOperation(s[i])) {
+      curOp = i;
+      expression.push(Number(s.slice(firstNum, curOp)))
+      expression.push(s[i])
+      firstNum = i + 1;
     }
-    
-    if (isOperation(string[0])) {
-      expression.push(string[0])
-      return helper(string.slice(1))
+    if (i === s.length - 1) {
+      expression.push(Number(s.slice(firstNum, s.length)))
     }
-    var i = 0;
-    while ( isInt(string[i]) && i < string.length) {
-      i++
-    }
-    expression.push(Number(string.slice(0, i)))
-    return helper(string.slice(i));
-  };
-
-  helper(s);
+  }
   console.log("array expression", expression)
     
 
@@ -92,9 +87,7 @@ var isOperation = function(s) {
   return ['+', '-', '*', '/'].includes(s)
 }
 
-var isInt = function(s) {
-  return ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(s)
-}
+
 
 console.log('result: ', 14 + 21/3 * 4 - 4/ 2+1 * 3)
 calculate("14 + 21/3 * 4 - 4/ 2+1 * 3")
