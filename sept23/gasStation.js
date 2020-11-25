@@ -45,38 +45,38 @@ You cannot travel back to station 2, as it requires 4 unit of gas but you only h
 Therefore, you can't travel around the circuit once no matter where you start.
 */
 
-// var canCompleteCircuit = function(gas, cost) {
-//   for (var i = 0; i < gas.length; i++) {
-//     if (gas[i] >= cost[i]) {
-//       let gasCounter = 0
-//       for (let stationCount = 0; stationCount < gas.length; stationCount++) {
-//         gasCounter += gas[(i + stationCount) % (gas.length)];
-//         gasCounter -= cost[(i + stationCount) % (gas.length)];
-//         console.log('i, stationCount, gasCounter', i, stationCount , gasCounter)
-//         if (gasCounter < 0) {
-//           break;
-//         }
-//         if (stationCount === gas.length - 1) {
-//           return i;
-//         }
-//       }
-//     }
-//   }
-//   return -1
-// };
-
 var canCompleteCircuit = function(gas, cost) {
-  gas.forEach((el, idx) => {
-    gas[idx] = el - cost[idx]
-  })
-  console.log("gas", gas)
-  let resultIndex = 0;
   for (var i = 0; i < gas.length; i++) {
-    
+    if (gas[i] >= cost[i]) {
+      let gasCounter = 0
+      for (let stationCount = 0; stationCount < gas.length; stationCount++) {
+        gasCounter += gas[(i + stationCount) % (gas.length)];
+        gasCounter -= cost[(i + stationCount) % (gas.length)];
+        console.log('i, stationCount, gasCounter', i, stationCount , gasCounter)
+        if (gasCounter < 0) {
+          break;
+        }
+        if (stationCount === gas.length - 1) {
+          return i;
+        }
+      }
+    }
   }
   return -1
-  
 };
+// beginnings of 2nd pass
+// var canCompleteCircuit = function(gas, cost) {
+//   gas.forEach((el, idx) => {
+//     gas[idx] = el - cost[idx]
+//   })
+//   console.log("gas", gas)
+//   let resultIndex = 0;
+//   for (var i = 0; i < gas.length; i++) {
+    
+//   }
+//   return -1
+  
+// };
 
 gas  = [1,2,3,4,5]
 cost = [3,4,5,1,2]
