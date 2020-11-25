@@ -33,15 +33,15 @@ Output: 5
 // first attempt
 var calculate = function(s) {
   // first separate into an array where [num, operation, num,...]
+  s = s.replace(/\s/g, '');
+  
   var expression = [];
 
   helper = (string) => {
     if (string.length === 0) {
       return;
     }
-    if (string[0] === ' ') {
-      return helper(string.slice(1))
-    }
+    
     if (isOperation(string[0])) {
       expression.push(string[0])
       return helper(string.slice(1))
@@ -55,38 +55,37 @@ var calculate = function(s) {
   };
 
   helper(s);
-  console.log("1", expression)
+  console.log("array expression", expression)
     
-  // second preform the operations following appropriate order of operations.
-  // mult and div first
+
+  let stack = [];
   for (var i = 0; i < expression.length; i++) {
-    if (expression[i] === '*') {
-      let result = expression[i-1] * expression[i+1]
-      expression.splice(i-1, 3, result )
-      i = i - 1
+    if(typeof expression[i] === 'number' || expression[i] === '+' || expression[i] === '-') {
+      stack.push(expression[i])
+    } else if (expression[i] === '*') {
+      let first = stack.pop()
+      let result = first * expression[i+1]
+      stack.push(result)
+      i++;
+    } else if (expression[i] === '/') {
+      let first = stack.pop()
+      let result = Math.floor(first / expression[i+1])
+      stack.push(result)
+      i++;
     }
-    if (expression[i] === '/') {
-      let result = Math.floor(expression[i-1] / expression[i+1])
-      expression.splice(i-1, 3, result )
-      i = i - 1
-    }
-  } 
+  }
 
-  for (var i = 0; i < expression.length; i++) {
-    if (expression[i] === '+') {
-      let result = expression[i-1] + expression[i+1]
-      expression.splice(i-1, 3, result )
-      i = i - 1
+  let result = stack[0];
+  for (var j = 1; j < stack.length; j += 2) {
+    if(stack[j] === "+") {
+      result += stack[j+1]
     }
-    if (expression[i] === '-') {
-      let result = Math.floor(expression[i-1] - expression[i+1])
-      expression.splice(i-1, 3, result )
-      i = i - 1
+    if(stack[j] === "-") {
+      result -= stack[j+1]
     }
-  } 
-
-  return expression[0];
-
+  }
+  console.log("return result: ", result)
+  return result
 };
 
 var isOperation = function(s) {
@@ -97,6 +96,7 @@ var isInt = function(s) {
   return ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].includes(s)
 }
 
-calculate("14 + 21/3 * 4")
-calculate("4/ 2 + 1 * 3")
-calculate("42 * 10 /5+3")
+console.log('result: ', 14 + 21/3 * 4 - 4/ 2+1 * 3)
+calculate("14 + 21/3 * 4 - 4/ 2+1 * 3")
+// calculate("4/ 2 + 1 * 3")
+// calculate("42 * 10 /5+3")
