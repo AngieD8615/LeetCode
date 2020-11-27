@@ -23,7 +23,27 @@ s consists of only lowercase English letters.
 */
 
 var longestSubstring = function(s, k) {
- 
+  // count the frequency of each char
+  let count = {}
+  for (var i = 0; i < s.length; i++) {
+    if (!count[s[i]]) {
+      count[s[i]] = 1;
+    } else {
+      count[s[i]]++;
+    }
+  }
+  // iterate through the count object
+    // if the count is equal to or higher than k
+      // sum the values
   
-
+  let substringLength = 0
+  for (var key in count) {
+    if (count[key] >= k) {
+      substringLength += count[key];
+    }
+  }
+  // return the sum
+  return substringLength;
 };
+
+console.log(longestSubstring("ababbc", 2))
