@@ -44,12 +44,11 @@ then  N = 111 = 11 * 10 + 1,    111 = (nK + r) * 10 + 1 && 111 = n'K + r' theref
 
 var smallestRepunitDivByK = function(K) {
   let remainders = new Set();
-  let count = 0;
-  let remainder;
+ 
+  let remainder = 0;
 
-  for (var n = 1; ;n = 10 * remainder + 1) {
-    count++;
-    remainder = n % K;
+  for (var count = 1; ;count++) {
+    remainder = (10 * remainder + 1) % K;
     if (remainder === 0) {
       return count
     }
@@ -77,4 +76,4 @@ var smallestRepunitDivByK = function(K) {
 
 };
 
-console.log(smallestRepunitDivByK(2))
+console.log(smallestRepunitDivByK(9))

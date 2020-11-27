@@ -36,11 +36,11 @@ var calculate = function(s) {
   s = s.replace(/\s/g, '');
   
   var expression = [];
-  
   var firstNum = 0;
   var curOp = 0;
+
   for (var i = 0; i < s.length; i++) {
-    if(isOperation(s[i])) {
+    if(['+', '-', '*', '/'].includes(s[i])) {
       curOp = i;
       expression.push(Number(s.slice(firstNum, curOp)))
       expression.push(s[i])
@@ -50,12 +50,10 @@ var calculate = function(s) {
       expression.push(Number(s.slice(firstNum, s.length)))
     }
   }
-  console.log("array expression", expression)
     
-
   let stack = [];
   for (var i = 0; i < expression.length; i++) {
-    if(typeof expression[i] === 'number' || expression[i] === '+' || expression[i] === '-') {
+    if (typeof expression[i] === 'number' || expression[i] === '+' || expression[i] === '-') {
       stack.push(expression[i])
     } else if (expression[i] === '*') {
       let first = stack.pop()
@@ -83,9 +81,6 @@ var calculate = function(s) {
   return result
 };
 
-var isOperation = function(s) {
-  return ['+', '-', '*', '/'].includes(s)
-}
 
 
 
