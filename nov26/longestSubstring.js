@@ -22,28 +22,31 @@ s consists of only lowercase English letters.
 1 <= k <= 105
 */
 
-var longestSubstring = function(s, k) {
-  // count the frequency of each char
-  let count = {}
-  for (var i = 0; i < s.length; i++) {
-    if (!count[s[i]]) {
-      count[s[i]] = 1;
+var longestSubstring = function (s, k) {
+  let substringLength = 0;
+
+  let counter = {}; // {char: {count: num, index:[]}}
+  for (var i = 0; i < subString.length; i++) {
+    if (!counter[s[i]]) {
+      counter[s[i]] = {count: 1, index: [i]}
     } else {
-      count[s[i]]++;
+      counter[s[i]].count++;
+      counter[s[i]].index.push(i)
     }
   }
-  // iterate through the count object
-    // if the count is equal to or higher than k
-      // sum the values
+
+  let boarder = []
+  for (var key in counter) {
+    if (counter[key].count < k) {
+      boarder.push(counter.index);
+    }
+  }
   
-  let substringLength = 0
-  for (var key in count) {
-    if (count[key] >= k) {
-      substringLength += count[key];
-    }
-  }
-  // return the sum
+  boarder.sort(function(a, b) {
+    return a - b;
+  });
+  console.log(boarder)
   return substringLength;
 };
 
-console.log(longestSubstring("ababbc", 2))
+console.log(longestSubstring("bbaaacdb", 3));
