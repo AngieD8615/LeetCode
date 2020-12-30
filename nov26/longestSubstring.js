@@ -24,7 +24,9 @@ s consists of only lowercase English letters.
 
 var longestSubstring = function (s, k) {
   let substringLength = 0;
-
+  let startingBoarder = 0;
+  let endingBoarder = 0;
+  
   let counter = {}; // {char: {count: num, index:[]}}
   for (var i = 0; i < subString.length; i++) {
     if (!counter[s[i]]) {
@@ -35,17 +37,21 @@ var longestSubstring = function (s, k) {
     }
   }
 
-  let boarder = []
+  let boarders = []
   for (var key in counter) {
     if (counter[key].count < k) {
-      boarder.push(counter.index);
+      boarders.push(counter.index);
     }
   }
   
-  boarder.sort(function(a, b) {
+  if (boarders.length === 0) {
+    substringLength = Math.max(s.length, substringLength)
+  }
+  
+  boarders.sort(function(a, b) {
     return a - b;
   });
-  console.log(boarder)
+  console.log(boarders)
   return substringLength;
 };
 
