@@ -79,11 +79,8 @@ var closeStrings = function(word1, word2) {
   const freqCounter = (str) => {
     let count = {};
     for (var i in str) {
-      if (!count[str[i]]) {
-        count[str[i]] = 1;
-      } else {
-        count[str[i]]++
-      }
+      let curChar = str[i]
+      !count[curChar] ? count[curChar] = 1 : count[curChar]++
     }
     return count
   }
