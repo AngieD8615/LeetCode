@@ -10,20 +10,28 @@ Note:
 
 [0,1,0,3,12]
 
-notes: slice out and push 0 to the end
+notes: 
+1) remove all zeros -> inc count
+
+2) add all the zeros at the end
 
 You must do this in-place without making a copy of the array.
 Minimize the total number of operations.
 */
 
 var moveZeroes = function(nums) {
-  for (var i = nums.length - 1; i >= 0; i--) {
+  var numOfZeros = 0
+  for (var i = 0; i < nums.length; i++) {
     if (nums[i] === 0) {
       nums.splice(i, 1);
-      nums.push(0);
+      numOfZeros++;
+      i--;
     }
   }
+  for (var i = 0; i < numOfZeros; i++) {
+    nums.push(0);
+  }
   return nums;
-};
+}
 
-console.log(moveZeroes([0,1,0,3,12]))
+console.log(moveZeroes([1,0,1,0,2,0,3,4]))
