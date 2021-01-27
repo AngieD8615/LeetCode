@@ -27,14 +27,19 @@ Constraints:
 var climbStairs = function(n) {
   if (n === 0) return 0;
   let count = 0;
-  
+  let previouslyCalculated = {};
+
   const helper = (stepsLeft) => {
     if (stepsLeft === 0 || stepsLeft === 1) {
       count++;
+      if (!previouslyCalculated[stepsLeft]) {
+        previouslyCalculated[stepsLeft] = count
+      }
       return;
     } else if (stepsLeft > 1) {
-      helper(stepsLeft - 2);
-      helper(stepsLeft - 1);
+        helper(stepsLeft - 1);
+      
+        helper(stepsLeft - 2);
     } else {
       return;
     }
@@ -44,7 +49,7 @@ var climbStairs = function(n) {
   return count;
 };
 
-let start = new Date()
-console.log(climbStairs(45));
-let end = new Date()
-console.log(end - start)
+// let start = new Date()
+console.log(climbStairs(6));
+// let end = new Date()
+// console.log(end - starts)
