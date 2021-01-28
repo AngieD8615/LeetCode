@@ -13,7 +13,7 @@
  */
 
 // given node: {val: 3, next: {val: 4, next: null }}
-var deleteNode = function(node) {
+var deleteNode1 = function(node) {
     // question: how to access the head?
     var root = this;  // ?? assuming root is not the linked list
 
@@ -34,6 +34,11 @@ var deleteNode = function(node) {
     helper(root);
 
 };
+
+var deleteNode = function(node) {
+  node.val = node.next.val;
+  node.next = node.next.next;
+}
 
 let test = {
   val: 1, 
