@@ -3,10 +3,10 @@ var getResponse = function(){
   var devices = ["device1", "device2", "device3","device4","device5", "device6", "device7"];
   var response = [];
   devices.forEach(function(device){
-      if (Math.random() >= 0.7){
+      if (Math.random() >= 0.5){
           var task_names = [];
           tasks.forEach(function(task){
-              if (Math.random() >= 0.7){
+              if (Math.random() >= 0.5){
                   task_names.push(task);
               }
           });
