@@ -1,15 +1,42 @@
 import React, { useState, useEffect } from "react";
+import { uuid } from "uuidv4";
 import "./App.css";
 import getResponse from "./getResponse.js";
 
 function App() {
+  
   const [deviceTaskData, setDeviceTaskData] = useState([]);
 
   useEffect(() => {
     let newData = getResponse();
-    console.log(newData)
+    console.log(newData);
     setDeviceTaskData(newData);
   }, []);
+
+  const reloadData = () => {
+    let oldData = [...deviceTaskData];
+    let newData = getResponse();
+    console.log("oldData ", [...deviceTaskData], " newData ", newData);
+
+    for (var i = 0; i < newData.length; i++) {
+      for (var j = 0; j < oldData.length; j++) {
+        console.log(i, j, oldData[j].device, newData[j].device);
+        if (oldData[j].device === newData[j].device) {
+          oldData[j].tasks = oldData[j].tasks.concat(newData[j].tasks);
+        }
+        oldData.push(newData[j]);
+      }
+    }
+    console.log("post", oldData);
+    setDeviceTaskData(oldData);
+  };
+
+  const handleDelete = (deviceIndex, taskIndex) => {
+    let checking = [...deviceTaskData];
+    checking[deviceIndex].tasks.splice(1, taskIndex);
+    setDeviceTaskData(checking)
+    console.log("clicked ", deviceIndex, taskIndex, deviceTaskData, checking);
+  };
 
   return (
     <div>
@@ -27,11 +54,33 @@ function App() {
             </tr>
           </thead>
           <tbody>
-            {deviceTaskData.map((deviceElement) => {
+            {deviceTaskData.map((deviceElement, deviceIndex) => {
               return (
-                <tr>
+                <tr key={uuid()}>
                   <td>{deviceElement.device}</td>
-                  <td>{deviceElement.tasks.map((task) => <p>{task},</p>)}</td>
+                  <td>
+                    <div>
+                      {deviceElement.tasks.map((task, taskIndex) => {
+                        let uniqueKey = uuid();
+                        return taskIndex === deviceElement.tasks.length - 1 ? (
+                          <span
+                            key={uniqueKey}
+                            onClick={() => handleDelete(deviceIndex, taskIndex)}
+                            className="task"
+                          >
+                            {task}
+                          </span>
+                        ) : (
+                          <React.Fragment key={uniqueKey}>
+                            <span className="task" onClick={() => handleDelete(deviceIndex, taskIndex)}>
+                              {task}
+                            </span>
+                            <span>, </span>
+                          </React.Fragment>
+                        );
+                      })}
+                    </div>
+                  </td>
                 </tr>
               );
             })}
