@@ -9,7 +9,7 @@
   color: white;
 }
 
-.appBody {
+body {
   background-color: beige;
   color: dimgrey;
 }
@@ -23,8 +23,10 @@
 }
 
 table {
+  margin-top: 20px;
   border: rgb(18, 18, 19) solid 1px;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   width: 60%;
 }
 
@@ -32,9 +34,6 @@ thead {
   border: solid black 1px;
 }
 
-td tr {
-  margin: auto;
-}
 
 .task:hover {
   transform: scale(1.3);

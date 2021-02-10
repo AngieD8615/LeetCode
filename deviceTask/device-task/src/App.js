@@ -33,7 +33,7 @@ function App() {
 
   const handleDelete = (deviceIndex, taskIndex) => {
     let checking = [...deviceTaskData];
-    checking[deviceIndex].tasks.splice(1, taskIndex);
+    checking[deviceIndex].tasks.splice(taskIndex, 1);
     setDeviceTaskData(checking)
     console.log("clicked ", deviceIndex, taskIndex, deviceTaskData, checking);
   };
@@ -60,7 +60,7 @@ function App() {
                   <td>{deviceElement.device}</td>
                   <td>
                     <div>
-                      {deviceElement.tasks.map((task, taskIndex) => {
+                      {deviceElement.tasks.length === 0 ? null : deviceElement.tasks.map((task, taskIndex) => {
                         let uniqueKey = uuid();
                         return taskIndex === deviceElement.tasks.length - 1 ? (
                           <span
