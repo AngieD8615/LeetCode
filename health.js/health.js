@@ -2,7 +2,8 @@
 // # Advocate (each 'HA'). Each activity record is represented by a list of
 // # 3-element tuples as follows:
 
-// activity = [(1, '@login', None),
+// activity = [
+// (1, '@login', None),
 // (5, '@startVideo', 'Bob'),
 // (20, '@startVideo', 'Thomas'),
 // (66, '@stopVideo', 'Thomas'),
@@ -13,7 +14,25 @@
 // (150, '@login', None),
 // (160, '@startVideo', 'Thomas'),
 // (205, '@stopVideo', 'Thomas'),
-// (210, '@logout', None) ]
+// (210, '@logout', None) 
+// ]
+
+// time, act, who (none)
+// timeCounter = 0;
+// timeWithTwoPeeps = 0;
+// [(1, '@login', None), (5, '@startVideo', 'Bob'), (20, '@startVideo', 'Thomas')]
+// if stack length === 3 -> accum the time with 2 peeps
+// time with 2 starts when last person jumped on and stops at stopVideo --> 66 - 20
+// remove toms start vid
+
+// find logout timerCounter += (100 - 1)
+// no longer need login -> pop it out
+// []
+// [(150, '@login', None)]
+// find logout timerCounter += (210 - 160)
+// no longer need login -> pop it out
+// []
+
 
 // # For each tuple, the first element is timestamp, the second is an action (e.g.,
 // # '@login', '@startVideo', '@stopVideo', '@logout'), and the last element is
