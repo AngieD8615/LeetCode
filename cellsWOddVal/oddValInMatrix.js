@@ -28,11 +28,16 @@ Constraints:
 
 
 var oddCells = function(n, m, indices) {
-  let arr = new Array(n)
-  let inner = new Array(m)
-
-  arr.fill([...inner.fill(0)])
-  console.log("og", arr)
+  let inner = []
+  while (inner.length < m) {
+    inner.push(0)
+  }
+  let arr = []
+  while (arr.length < n) {
+    arr.push([...inner])
+  }
+  console.log("Zeros", arr)
+  let count = 0;
   
   indices.forEach((set) => {
     arr[set[0]] = arr[set[0]].map(val => val + 1)
@@ -54,4 +59,4 @@ var oddCells = function(n, m, indices) {
 
 };
 
-console.log(oddCells(28, 38, [[17,16],[26,31],[19,12],[22,24],[17,28],[23,21],[27,32],[23,27],[23,33],[18,7],[4,20],[0,31],[25,33],[5,22]]))
+console.log(oddCells(2, 4, [[1, 1], [0,0]]))
