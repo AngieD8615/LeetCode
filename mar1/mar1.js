@@ -37,15 +37,16 @@ n is even.
 */
 
 var distributeCandies = function(candyType) {
-  let numOfCandiesCanEat  = candyType.length / 2;
-  let candyTypes = {}
-  candyType.forEach(candy => {
-    if (!candyTypes[candy]) {
-      candyTypes[candy] = true
+  let numOfCandiesCanEat = candyType.length / 2;
+  let candyTypes = new Set
+  for (var i = 0; i < candyType.length; i++) {
+    let curCandy = candyType[i]
+    if (!candyTypes.has(curCandy)) {
+      candyTypes.add(curCandy)
+      if (candyTypes.size >= numOfCandiesCanEat) return numOfCandiesCanEat;
     }
-  })
-  const numOfTypes = Object.keys(candyTypes).length
-  return Math.min(numOfCandiesCanEat, numOfTypes)
+  }
+  return candyTypes.size;
 };
 
-console.log(distributeCandies([6,6,6,6]))
+console.log(distributeCandies([1,1,2,2,3,3]))
