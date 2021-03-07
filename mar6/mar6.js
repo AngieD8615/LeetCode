@@ -30,24 +30,56 @@ Constraints:
 words[i] consists of only lowercase letters.
  */
 
-var minimumLengthEncoding = function(words) {
+var minimumLengthEncoding01 = function(words) {
   let s = ""
   let indices = []
+  let hashTags = []
   
   for (var word of words) {
     let len = word.length
-    let wordStart = s.length - len - 1
-    if (wordStart >= 0 && s.slice(wordStart, s.length - 1) === word) {
-      indices.push(wordStart)
-      continue;
-    } else {
-      indices.push(s.length)
+    for (var hashTag of hashTags) {
+      let wordStart = hashTag - len - 1
+      if (wordStart >= 0 && s.slice(wordStart, s.length - 1) === word) {
+        indices.push(wordStart)
+        continue;
+      } else {
+        indices.push(s.length)
+      }
+      
+      s += `${word}#`
     }
-    
-    s += `${word}#`
   }
   console.log(s)
   return s.length
 };
 
-console.log(minimumLengthEncoding(["me", "time"])) 
+var minimumLengthEncoding = function(words) {
+  for (var i = 0; i < words.length; i++) {
+    for (var j = 0; j <  words.length; j++) {
+      if (i !== j) { 
+        if (words[i].length >= words[j].length) {
+          if (words[i].slice(-words[j].length) === words[j]) {
+            words.splice(j, 1)
+          }
+        } else if (words[i].length < words[j].length) {
+          if (words[j].slice(-words[i].length) === words[i]) {
+            words.splice(i, 1)
+          }
+        }
+      }
+    }
+  }
+  wordStr = `${words.join("#")}#`
+  return wordStr.length
+}
+
+/**
+ * ["me", "time"] -> time# -> 5
+ * ["time", "button", "me", "on"] -> time#button# -> 12 
+ * ["time", "time", "time", "time"] -> time# -> 5
+ */
+
+
+
+
+console.log(minimumLengthEncoding(["time", "time", "time", "time"])) 
