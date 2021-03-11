@@ -25,31 +25,42 @@ Constraints:
 */
 
 var climbStairs = function(n) {
-  if (n === 0) return 0;
-  let count = 0;
-  let previouslyCalculated = {};
+  if (n === 0) return 0
+  if (n === 1) return 1
 
+  let count = 0
   const helper = (stepsLeft) => {
-    if (stepsLeft === 0 || stepsLeft === 1) {
-      count++;
-      if (!previouslyCalculated[stepsLeft]) {
-        previouslyCalculated[stepsLeft] = count
-      }
-      return;
-    } else if (stepsLeft > 1) {
-        helper(stepsLeft - 1);
-      
-        helper(stepsLeft - 2);
-    } else {
-      return;
+    // baseCase
+    if (stepsLeft <= 1) {
+      count++
+      return
     }
+    helper(stepsLeft - 1) // take 1 step
+    helper(stepsLeft - 2) // take 2 step
   }
-
-  helper(n);
-  return count;
+  helper(n)
+  return count
 };
 
-// let start = new Date()
-console.log(climbStairs(6));
-// let end = new Date()
-// console.log(end - starts)
+// O(n)
+var climbStairs2 = function(n) {
+  if (n === 0) return 0  // is an edge case
+  if (n === 1) return 1
+  if (n === 2) return 2
+  let results = [1, 2]
+  while (results.length < n) {
+    let last = results[results.length - 1]
+    let secondLast = results[results.length - 2]
+    results.push(last + secondLast)
+  }
+  return results[results.length - 1]
+};
+
+// console.log(climbStairs2(0) === 0);
+// console.log(climbStairs2(1) === 1);
+// console.log(climbStairs2(2) === 2);
+// console.log(climbStairs2(3) === 3);
+// console.log(climbStairs2(4) === 5);
+// console.log(climbStairs2(5) === 8);
+// console.log(climbStairs2(10) === 89);
+console.log(climbStairs2(50));
